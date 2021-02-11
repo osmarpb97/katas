@@ -1,24 +1,13 @@
-
-def rev(n):
-    rev = 0;  
-    while (n):  
-        rem = n % 10;  
-        rev = (rev * 10) + rem;  
-        n = int(n / 10);  
-    return rev;  
-
-def is_pal(n):
-    return n == rev(n)
-
 def find_reverse_number(n):
-    last = 0
-    i=0
-    while n:
-        print(n)
-        if is_pal(i):
-            last = i
-            n-=1
-        i+=1
-    return last
+    n = n - 1                   # this kata assumes 1-based indices
 
-print(find_reverse_number(100))
+    if n < 10:                  # tiny optimization
+        return n
+
+    x = n // 11                 # order of magnitude
+    width = len(str(x))         # width of x
+    nines = int("9"*width)      # the magic number
+    lh = str(n - nines)         # the left side of the result
+    rh = lh[:width][::-1]       # the right side of the result
+    result = int(lh + rh)
+    return result
